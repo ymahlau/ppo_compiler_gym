@@ -1,15 +1,16 @@
 import pickle
-from typing import List, Callable
-from torch.serialization import save
-from tqdm import tqdm
-from policy_critic_network import policy_critic_network
+import random
+
 import gym
-from gym.wrappers import TimeLimit
 import compiler_gym
 from compiler_gym.envs.llvm import make_benchmark
 import numpy as np
-import random
 import torch
+from gym.wrappers import TimeLimit
+from tqdm import tqdm
+
+from policy_critic_network import policy_critic_network
+
 
 def geom_mean(list):
     list = np.array(list)
@@ -141,9 +142,9 @@ def improve_dic_infinitely(save_dst):
     benchmark_list.remove('ghostscript')
     while True:
         # init benchmark
-        # bench_name = random.choice(benchmark_list)
-        bench_name = 'dijkstra'
-        
+        bench_name = random.choice(benchmark_list)
+        # bench_name = 'dijkstra'
+
         # for bench_name in benchmark_list:
         print(f'starting {bench_name}')
         benchmark_str = f'cbench-v1/{bench_name}'
@@ -196,7 +197,8 @@ def parse_lookup_table(dict_path, table_path, max_episode_steps):
                 
             if obs_tuple in table:
                 old_action = table[obs_tuple]
-                print(f'error, obs occurs multiple time (step {i}): {obs}, old action: {old_action}, new action: {action}')
+                print(f'error, obs occurs multiple time (step {i}): {obs}, old action: {old_action}, '
+                      f'new action: {action}')
                 num_errors += 1
             
             table[obs_tuple] = action
@@ -221,25 +223,27 @@ def parse_lookup_table(dict_path, table_path, max_episode_steps):
 
 def main():
     dict_dst = './data/data_dict'
-    # table_dst = './data/table'
-    # improve_dic_infinitely(dict_dst)
+    table_dst = './data/table'
+    improve_dic_infinitely(dict_dst)
 
     
     # data_dict = load_dic(dict_dst)
     # print(data_dict)
+    # file = open('temp.txt', 'w')
+    # file.write(str(data_dict))
 
     # table = parse_lookup_table(dict_path=dict_dst, table_path=table_dst, max_episode_steps=300)
     # print(table)
 
     # bench_name = 'dijkstra'
     # benchmark_str = f'cbench-v1/{bench_name}'
-    #env = gym.make("llvm-autophase-ic-v0", benchmark=benchmark_str,
+    # env = gym.make("llvm-autophase-ic-v0", benchmark=benchmark_str,
     #               reward_space="IrInstructionCountNorm")
-    #max_episode_steps = 200
-    #env = TimeLimit(env, max_episode_steps=max_episode_steps)
-
-    #res_tuple = gather_data_for_env(env, max_steps=max_episode_steps, episodes=100)
-    #print(res_tuple)
+    # max_episode_steps = 200
+    # env = TimeLimit(env, max_episode_steps=max_episode_steps)
+    #
+    # res_tuple = gather_data_for_env(env, max_steps=max_episode_steps, episodes=100)
+    # print(res_tuple)
 
 
 if __name__ == '__main__':
