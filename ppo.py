@@ -46,7 +46,8 @@ class Evaluation:
         output_list = np.array(input_list)
         return output_list.prod() ** (1 / len(output_list))
 
-    def evaluate(self, benchmarks, model_name, print_progress=True, additional_steps_for_max=0, max_trials_per_benchmark=10,
+    def evaluate(self, benchmarks, model_name, print_progress=True, additional_steps_for_max=0,
+                 max_trials_per_benchmark=10,
                  max_time_per_benchmark=10 * 1):
 
         if print_progress:
@@ -125,6 +126,7 @@ class PPO:
         Credit to https://github.com/nikhilbarhate99/PPO-PyTorch/blob/master/PPO.py.
         Parts of the rollout_buffer and the update method are taken from here.
     """
+
     def __init__(self, env, name="default", EPOCHS=80, eps_clip=0.2, loss_mse_fac=0.5, loss_entr_fac=0.01,
                  learning_rate=5e-4, trajectories_until_update=20):
         self.EPOCHS = EPOCHS
@@ -244,3 +246,5 @@ env = llvm_wrapper(benchmarks, max_episode_steps=200, steps_in_observation=True)
 
 ppo_training = PPO(env)
 ppo_training.train(log_progress=True, training_time=60 * 60 * 1000, progress_log_rate=60 * 30)
+Evaluation.evaluate(benchmarks, "default", additional_steps_for_max=500, max_trials_per_benchmark=100000,
+                    max_time_per_benchmark=60 * 1)
