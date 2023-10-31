@@ -1,7 +1,7 @@
 import gym
 import numpy as np
 import random
-
+from compiler_gym.envs.llvm import make_benchmark
 
 class llvm_wrapper(gym.Env):
     """
@@ -14,6 +14,7 @@ class llvm_wrapper(gym.Env):
     def __init__(self, benchmarks, max_episode_steps=None, steps_in_observation=False, patience=None,
                  allowed_actions=None):
         self.env = gym.make("llvm-autophase-ic-v0", benchmark="cbench-v1/{0}".format(benchmarks[0]))
+        # self.env = gym.make("llvm-v0", benchmark="cbench-v1/{0}".format(benchmarks[0]))
         self.benchmarks = benchmarks
 
         # patience
