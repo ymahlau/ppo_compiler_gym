@@ -1,0 +1,18 @@
+name: ppo_compiler_env
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - swig
+  - git
+  - pip:
+    - setuptools==65.5.0
+    - torch
+    - matplotlib
+    - gym==0.21.0
+    - numpy
+    - compiler_gym
+    - tqdm
