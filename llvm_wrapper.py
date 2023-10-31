@@ -1,7 +1,6 @@
 import gym
 import numpy as np
 import random
-from compiler_gym.envs.llvm import make_benchmark
 
 
 class llvm_wrapper(gym.Env):

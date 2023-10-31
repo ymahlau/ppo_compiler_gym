@@ -4,7 +4,7 @@ channels:
   - pytorch
   - defaults
 dependencies:
-  - python=3.11
+  - python=3.9
   - pip
   - swig
   - git
@@ -14,5 +14,5 @@ dependencies:
     - matplotlib
     - gym==0.21.0
     - numpy
-    - compiler_gym
+    - compiler_gym==0.2.1
     - tqdm

@@ -58,9 +58,9 @@ class Evaluation:
         performances = []
 
         for benchmark in benchmarks:
-            env = llvm_wrapper([benchmark], max_episode_steps=episode_length, steps_in_observation=False)
+            env = llvm_wrapper([benchmark], max_episode_steps=episode_length, steps_in_observation=True)
             long_env = llvm_wrapper([benchmark], max_episode_steps=episode_length + additional_steps_for_max,
-                                    steps_in_observation=False)
+                                    steps_in_observation=True)
             model = policy_critic_network(env.observation_space.shape[0], env.action_space.n)
             model.load_state_dict(torch.load("models/{0}.model".format(model_name)))
 
